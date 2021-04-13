@@ -2,7 +2,7 @@ from load_utils import split_sents, read_stopwords
 import jieba
 from tqdm import tqdm
 import json
-
+import random
 
 
 # def get_word_list(word_dict_file):
@@ -19,14 +19,18 @@ import json
 
 
 
+#使用的数据量大小,总共将近200w条
+data_size = 200000
+
 def get_word_info(data_file, stopwords_file):
     dict = {}
     stop_words = read_stopwords(stopwords_file=stopwords_file)
 
     all_sents = split_sents(data_file)
+    random.shuffle(all_sents)
     print(len(all_sents))
 
-    for sent in tqdm(all_sents, desc='counting'):
+    for sent in tqdm(all_sents[:data_size], desc='counting'):
         words = jieba.lcut(sent)
         words_set = set(words)
 
@@ -73,7 +77,7 @@ def writing_word_info(all_word_info, written_file):
 
 if __name__ == '__main__':
     data_file = 'data/data.json'
-    written_file = 'word_info.json'
+    written_file = 'word_info_middle.json'
     stopwords_file = 'data/stopwords.txt'
 
     all_word_info = get_word_info(data_file, stopwords_file)

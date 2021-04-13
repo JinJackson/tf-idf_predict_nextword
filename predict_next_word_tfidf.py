@@ -102,8 +102,10 @@ def predict(word_info_file, stopwords_file, topk):
         end_time = time.time()
         print('costing time:', end_time-start_time)
         print(res)
+
+
 if __name__ == '__main__':
-    word_info_file = 'all_word_info.json'
+    word_info_file = 'word_info_middle.json'
     stopwords_file = 'data/stopwords.txt'
     predict(word_info_file=word_info_file, stopwords_file=stopwords_file, topk=10)
 
